@@ -159,31 +159,15 @@ O copia el APK al celular e instálalo manualmente.
 
 ---
 
-## Mejoras aplicadas
 
-### 1. Detección automática de contorno
-Al seleccionar una imagen, el contorno se detecta automáticamente con umbral Otsu + findContours. Ya no es necesario dibujarlo manualmente. El contorno se muestra en rojo sobre la imagen.
+### Resultados de precisión
 
-### 2. Otsu thresholding
-Reemplazo del umbral adaptativo por **Otsu thresholding** (`cv::threshold(..., THRESH_OTSU)`). Otsu calcula automáticamente el umbral óptimo para binarizar, dando contornos completos de la hoja (~400K px de área) en lugar de textura interna (~1K px como con Canny).
-
-### 3. Compactness como feature adicional
-El descriptor ahora tiene **13 componentes**: 12 de Fourier + 1 de **compactness** (`área del contorno / área del bounding box`). Este valor mide qué tan "rellena" está la forma, útil para distinguir especies con perfiles de Fourier similares.
-
-### 4. Clasificador k-NN (k=3)
-Reemplazo de 1-NN por **k-NN con k=3**: vota entre los 3 vecinos más cercanos, reduciendo el impacto de outliers en los datos de entrenamiento.
-
-### 5. Corrección de rotación EXIF
-Las fotos tomadas con celular tienen metadatos EXIF de orientación. Se aplica `ExifInterface` + `Bitmap.createBitmap` para rotar la imagen correctamente antes de procesar el contorno.
-
-### 6. Resultados de precisión
-
-| Métrica        | Canny (65.17%) | Otsu (94.38%) |
-|----------------|----------------|---------------|
-| Clase 3        | 80.0%          | 93.3%         |
-| Clase 4        | 100%           | 100%          |
-| Clase 5        | 41.7%          | 100%          |
-| Clase 6        | 76.9%          | 92.3%         |
-| Clase 7        | 36.4%          | 90.9%         |
-| Clase 8        | 45.5%          | 90.9%         |
-| Clase 9        | 58.3%          | 83.3%         |
+| Métrica        | Precision (94.38%) |
+|----------------|---------------|
+| Clase 3        | 93.3%         |
+| Clase 4        | 100%          |
+| Clase 5        | 100%          |
+| Clase 6        | 92.3%         |
+| Clase 7        | 90.9%         |
+| Clase 8        | 90.9%         |
+| Clase 9        | 83.3%         |
